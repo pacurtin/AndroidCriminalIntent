@@ -10,12 +10,12 @@ import java.util.UUID;
 public class Crime {
     private Date mDate;
     private boolean mSolved;
+    private String mTitle;
+    private UUID mId;
 
     public UUID getId() {
         return mId;
     }
-
-    private UUID mId;
 
     public String getTitle() {
         return mTitle;
@@ -25,7 +25,6 @@ public class Crime {
         this.mTitle = mTitle;
     }
 
-    private String mTitle;
     public Crime() {
         // Generate unique identifier
         mId = UUID.randomUUID();
@@ -49,5 +48,4 @@ public class Crime {
     public String toString() {
         return mTitle;
     }
-
 }
