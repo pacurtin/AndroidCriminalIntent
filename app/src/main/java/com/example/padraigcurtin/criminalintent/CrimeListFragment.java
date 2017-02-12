@@ -27,17 +27,16 @@ import java.util.ArrayList;
 public class CrimeListFragment extends ListFragment {
     private boolean mSubtitleVisible;
     private ArrayList<Crime> mCrimes;
+    CrimeAdapter adapter;
+
 
     @TargetApi(11)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent,
-                             Bundle savedInstanceState) {
-        View v = super.onCreateView(inflater, parent, savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (mSubtitleVisible) {
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.subtitle);
-            }
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_crime_list, parent, false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && mSubtitleVisible)
+            getActivity().getActionBar().setSubtitle(R.string.subtitle);
+
         return v;
     }
 
@@ -87,7 +86,7 @@ public class CrimeListFragment extends ListFragment {
         getActivity().setTitle(R.string.crimes_title);
         mCrimes = CrimeLab.get(getActivity()).getCrimes();
 
-        CrimeAdapter adapter = new CrimeAdapter(mCrimes);
+        adapter = new CrimeAdapter(mCrimes);
         setListAdapter(adapter);
         setRetainInstance(true);
         mSubtitleVisible = false;
@@ -116,21 +115,16 @@ public class CrimeListFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            // If we weren't given a view, inflate one
-            if (convertView == null) {
-                convertView = getActivity().getLayoutInflater()
-                        .inflate(R.layout.list_item_crime, null);
-            }
-            // Configure the view for this Crime
+            // If no view, inflate one.
+            if (convertView == null)
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_crime, null);
+            // Configure the view for this Crime.
             Crime c = getItem(position);
-            TextView titleTextView =
-                    (TextView)convertView.findViewById(R.id.crime_list_item_titleTextView);
+            TextView titleTextView = (TextView) convertView.findViewById(R.id.crime_list_item_titleTextView);
             titleTextView.setText(c.getTitle());
-            TextView dateTextView =
-                    (TextView)convertView.findViewById(R.id.crime_list_item_dateTextView);
+            TextView dateTextView = (TextView) convertView.findViewById(R.id.crime_list_item_dateTextView);
             dateTextView.setText(android.text.format.DateFormat.format("EEE, MMM d, yyyy kk:mm", c.getDate()));
-            CheckBox solvedCheckBox =
-                    (CheckBox)convertView.findViewById(R.id.crime_list_item_solvedCheckBox);
+            CheckBox solvedCheckBox = (CheckBox) convertView.findViewById(R.id.crime_list_item_solvedCheckBox);
             solvedCheckBox.setChecked(c.isSolved());
             return convertView;
         }
