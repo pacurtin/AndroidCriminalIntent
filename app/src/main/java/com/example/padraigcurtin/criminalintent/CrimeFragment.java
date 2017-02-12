@@ -94,6 +94,11 @@ public class CrimeFragment extends Fragment {
         mTimeButton.setText(android.text.format.DateFormat.format("kk:mm", mCrime.getDate()));
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        CrimeLab.get(getActivity()).saveCrimes();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
