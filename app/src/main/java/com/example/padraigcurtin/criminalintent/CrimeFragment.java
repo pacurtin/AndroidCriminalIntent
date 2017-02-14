@@ -39,6 +39,8 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
+    private Button mDeleteButton;
+    private CrimeLab mCrimeLab;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -65,6 +67,7 @@ public class CrimeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
+        mCrimeLab = CrimeLab.get(getActivity());
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
         setHasOptionsMenu(true);
     }
@@ -92,6 +95,11 @@ public class CrimeFragment extends Fragment {
 
     public void updateTime() {
         mTimeButton.setText(android.text.format.DateFormat.format("kk:mm", mCrime.getDate()));
+    }
+
+    public void deleteCrime() {
+        //mTimeButton.setText(android.text.format.DateFormat.format("kk:mm", mCrime.getDate()));
+        mCrimeLab.deleteCrime(mCrime);
     }
 
     @Override
@@ -161,6 +169,22 @@ public class CrimeFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // Set the crime's solved property
                 mCrime.setSolved(isChecked);
+            }
+        });
+
+        mDeleteButton = (Button)v.findViewById(R.id.delete_crime);
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteCrime();
+
+                if (NavUtils.getParentActivityName(getActivity()) != null) {
+                    NavUtils.navigateUpFromSameTask(getActivity());
+                }
+
+                //FragmentManager fm = getActivity().getSupportFragmentManager();
+                //DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+                //dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                //dialog.show(fm, DIALOG_DATE);
             }
         });
 

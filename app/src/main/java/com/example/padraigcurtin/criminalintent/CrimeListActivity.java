@@ -12,4 +12,6 @@ public class CrimeListActivity extends SingleFragmentActivity {
         return new CrimeListFragment();
     }
 
+
+
 }

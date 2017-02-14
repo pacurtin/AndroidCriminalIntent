@@ -19,6 +19,7 @@ public class CrimePagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private ArrayList<Crime> mCrimes;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
