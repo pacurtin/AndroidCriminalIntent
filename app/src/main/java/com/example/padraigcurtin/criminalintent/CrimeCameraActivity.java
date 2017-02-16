@@ -3,13 +3,12 @@ package com.example.padraigcurtin.criminalintent;
 import android.support.v4.app.Fragment;
 
 /**
- * Created by padraig.curtin on 04/02/2017.
+ * Created by padraig.curtin on 14/02/2017.
  */
 
-public class CrimeListActivity extends SingleFragmentActivity {
+public class CrimeCameraActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
-        return new CrimeListFragment();
+        return new CrimeCameraFragment();
     }
-
 }

@@ -15,4 +15,5 @@
     <string name="delete_crime">Delete</string>
     <string name="empty_list">There are no crimes recorded</string>
     <string name="empty_list_button">Create New Entry</string>
+    <string name="take">Take!</string>
 </resources>
